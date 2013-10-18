@@ -1,4 +1,5 @@
-var Deferred = require("JQDeferred");
+var fs = require("fs"),
+	Deferred = require("JQDeferred");
 
 /**************************************************************
 					MAIN PAGE
