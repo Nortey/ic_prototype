@@ -1,6 +1,7 @@
 var express = require('express'),
     http = require('http'),
-    routes = require('./routes');
+    routes = require('./routes'),
+    mongoose = require('mongoose');
 
 // Config
 var app = express();
@@ -13,6 +14,17 @@ app.get('/', routes.main);
 app.get('/test', routes.test);
 
 // Start Server
-http.createServer(app).listen(3000);
+function start(){
+	mongoose.connect('mongodb://localhost/ic', function(err){
+		if(err) {
+			console.log("Mongo connection failed. Data will not be persisted");
+		}
+		else{
+			http.createServer(app).listen(3000);
+			console.log("Express server listening on port %d in %s mode", 3000, app.settings.env);
+		}
+	});
+}
 
-console.log("Express server listening on port %d in %s mode", 3000, app.settings.env);
+
+start();
