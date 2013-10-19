@@ -3,10 +3,21 @@ var mongoose = require('mongoose'),
 	User = require("./collections/user"),
 	Deferred = require("JQDeferred");
 
-var _addUsers = function(documents){
+var _signInUser = function(user){
 	var def = Deferred();
 
-	db.collection('users').insert(documents, {}, function(){
+	User.findOne({userName: user.userName, password: user.password}, function(err, user){
+		if(err) console.log(err);
+		def.resolve(user);
+	});
+
+	return def;
+}
+
+var _addUser = function(user){
+	var def = Deferred();
+
+	db.collection('users').insert(user, {}, function(){
 		def.resolve();
 	})
 
@@ -34,9 +45,8 @@ var _deleteAllUsers = function(){
 }
 
 module.exports = {
-	addUsers: _addUsers,
-	_getUserById: _getUserById,
-	deleteAllUsers: _deleteAllUsers
+	signInUser: _signInUser,
+	addUser: _addUser
 };
 
 

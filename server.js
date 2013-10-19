@@ -7,11 +7,13 @@ var express = require('express'),
 var app = express();
 app.use(express.cookieParser());
 app.use(express.bodyParser());
+app.use(express.session({secret: '1234567890QWERTY'}));
 app.use('/public', express.static(__dirname + '/public'));
+app.use(app.router);
 
 // Routes
 app.get('/', routes.main);
-app.get('/test', routes.test);
+app.post('/signIn', routes.signIn);
 
 // Start Server
 function start(){

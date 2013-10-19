@@ -1,5 +1,6 @@
 var fs = require("fs"),
-	Deferred = require("JQDeferred");
+	Deferred = require("JQDeferred"),
+	userHelper = require("./mongo/userHelper");
 
 /**************************************************************
 					MAIN PAGE
@@ -11,16 +12,25 @@ var _main = function(req, resp){
     });
 }
 
-
 /**********************************************************************************
-	Test
-	curl -i -X GET http://localhost:3000/test
+	Sign In
+	curl -i -X GET http://localhost:3000/signIn
 ***********************************************************************************/
-var _test = function(req, resp){
-	resp.send(200);
+var _signIn = function(req, resp){
+	var userName = req.body.userName;
+	var password = req.body.password;
+
+	userHelper.signInUser({userName: userName, password: password}).then(function(user){
+		if(user != null){
+			req.session.userName = user.userName;
+			resp.send(200);
+		}else{
+			resp.send(401);
+		}
+	});
 }
 
 module.exports = {
 	main: _main,
-	test: _test
+	signIn: _signIn
 };
