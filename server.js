@@ -16,8 +16,9 @@ app.get('/', routes.main);
 app.get('/sessionCheck', routes.sessionCheck);
 app.post('/signIn', routes.signIn);
 app.post('/createQuiz', routes.createQuiz);
-app.get('/getQuizzes', routes.getQuizzes);
+app.get('/getUserQuizzes', routes.getUserQuizzes);
 app.post('/addQuestion', routes.addQuestion);
+app.get('/getAllQuizzes', routes.getAllQuizzes);
 
 // Start Server
 function start(){

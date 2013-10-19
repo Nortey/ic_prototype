@@ -22,7 +22,7 @@ $("#addQuizNav").click(function(){
 
 	$("#addQuizNav").addClass("active");
 	$("#addQuizDiv").show();
-	getQuizzes();
+	getUserQuizzes();
 });
 
 $("#viewQuizzesNav").click(function(){
@@ -31,6 +31,7 @@ $("#viewQuizzesNav").click(function(){
 
 	$("#viewQuizzesNav").addClass("active");
 	$("#viewQuizzesDiv").show();
+	getAllQuizzes();
 });
 
 $("#signIn").click(function(){
@@ -123,14 +124,14 @@ function createQuiz(){
 		url: "/createQuiz",
 		data: data
 	}).then(function(response){
-		getQuizzes();
+		getUserQuizzes();
 	});
 }
 
-function getQuizzes(){
+function getUserQuizzes(){
 	$.ajax({
 		type: "GET",
-		url: "/getQuizzes",
+		url: "/getUserQuizzes",
 		dataType: 'json'
 	}).then(function(response){
 		$("#quizSelect").empty();
@@ -138,6 +139,27 @@ function getQuizzes(){
 		$.each(response, function(i, quiz){
 			var option = $("<option/>", {html: quiz.quizName, value: quiz.quizName});
 			$("#quizSelect").append(option);
+		})
+	});
+}
+
+function getAllQuizzes(){
+	$.ajax({
+		type: "GET",
+		url: "/getAllQuizzes",
+		dataType: 'json'
+	}).then(function(response){
+		var quizTable = $("#quizTable");
+		$('#quizTable tbody > tr').remove();
+
+		$.each(response, function(i, quiz){
+			var tableRow = $("<tr/>", {});
+			var userName = $("<td/>", {html: quiz.userName});
+			var quizName = $("<td/>", {html: quiz.quizName});
+
+			userName.appendTo(tableRow);
+			quizName.appendTo(tableRow);
+			tableRow.appendTo(quizTable)
 		})
 	});
 }

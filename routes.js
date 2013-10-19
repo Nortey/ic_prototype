@@ -57,13 +57,23 @@ var _createQuiz = function(req, resp){
 }
 
 /**********************************************************************************
-	Get quizzes
+	Get User quizzes
 	curl -i -X GET http://localhost:3000/getQuizzes
 ***********************************************************************************/
-var _getQuizzes = function(req, resp){
+var _getUserQuizzes = function(req, resp){
 	var userName = req.session.userName;
 
 	quizHelper.getQuizzesByUserName({userName: userName}).then(function(quizzes){
+		resp.json(quizzes);
+	});
+}
+
+/**********************************************************************************
+	Get All quizzes
+	curl -i -X GET http://localhost:3000/getQuizzes
+***********************************************************************************/
+var _getAllQuizzes = function(req, resp){
+	quizHelper.getAllQuizzes().then(function(quizzes){
 		resp.json(quizzes);
 	});
 }
@@ -85,6 +95,7 @@ module.exports = {
 	signIn: _signIn,
 	sessionCheck: _sessionCheck,
 	createQuiz: _createQuiz,
-	getQuizzes: _getQuizzes,
-	addQuestion: _addQuestion
+	getUserQuizzes: _getUserQuizzes,
+	addQuestion: _addQuestion,
+	getAllQuizzes: _getAllQuizzes
 };

@@ -23,6 +23,16 @@ var _getQuizzesByUserName = function(options){
 	return def;
 }
 
+var _getAllQuizzes = function(options){
+	var def = Deferred();
+
+	Quiz.find({}, function (err, quizzes) {
+  		def.resolve(quizzes);
+	});
+
+	return def;
+}
+
 var _addQuestion = function(options){
 	var userName = options.userName;
 	var questionObj = options.question;
@@ -56,7 +66,8 @@ module.exports = {
 	createQuiz: _createQuiz,
 	getQuizzesByUserName: _getQuizzesByUserName,
 	deleteAllQuizzes: _deleteAllQuizzes,
-	addQuestion: _addQuestion
+	addQuestion: _addQuestion,
+	getAllQuizzes: _getAllQuizzes
 };
 
 
