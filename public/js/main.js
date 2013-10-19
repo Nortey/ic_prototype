@@ -1,6 +1,7 @@
 $(document).ready(function () {
 	$(".contentDiv").hide();
- 	$("#addQuizDiv").show();
+ 	$("#accountDiv").show();
+ 	$(".nav li").hide();
 
 	sessionCheck().then(function(response){
 		loginCallback(response);
@@ -21,6 +22,7 @@ $("#addQuizNav").click(function(){
 
 	$("#addQuizNav").addClass("active");
 	$("#addQuizDiv").show();
+	getQuizzes();
 });
 
 $("#signIn").click(function(){
@@ -69,6 +71,8 @@ function loginCallback(response){
 	if(!loggedIn){
 		$("#signinForm").show();
 	}else{
+		$(".nav li").show();
+
 		$("#signinForm").hide();
 		$("#welcomeDiv").show();
 		$("#welcomeDiv").html("Welcome " + response.userName);
@@ -108,6 +112,8 @@ function getQuizzes(){
 		url: "/getQuizzes",
 		dataType: 'json'
 	}).then(function(response){
+		$("#quizSelect").empty();
+
 		$.each(response, function(i, quiz){
 			var option = $("<option/>", {html: quiz.quizName, value: quiz.quizName});
 			$("#quizSelect").append(option);
