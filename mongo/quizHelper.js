@@ -23,6 +23,25 @@ var _getQuizzesByUserName = function(options){
 	return def;
 }
 
+var _addQuestion = function(options){
+	var userName = options.userName;
+	var questionObj = options.question;
+	var quizName = questionObj.quizName;
+
+	var question = {
+		question: questionObj.question,
+		answers: questionObj.answers
+	}
+
+	db.collection('quizzes').update( 
+		{ userName: userName, quizName: quizName}, 
+		{ $push: {questions: question} },
+		function(err){
+			if(err) console.log(err);	
+		} 
+	);
+}
+
 var _deleteAllQuizzes = function(){
 	var def = Deferred();
 	
@@ -36,7 +55,8 @@ var _deleteAllQuizzes = function(){
 module.exports = {
 	createQuiz: _createQuiz,
 	getQuizzesByUserName: _getQuizzesByUserName,
-	deleteAllQuizzes: _deleteAllQuizzes
+	deleteAllQuizzes: _deleteAllQuizzes,
+	addQuestion: _addQuestion
 };
 
 

@@ -25,6 +25,14 @@ $("#addQuizNav").click(function(){
 	getQuizzes();
 });
 
+$("#viewQuizzesNav").click(function(){
+	$(".contentDiv").hide();
+	$(".nav li").removeClass("active");
+
+	$("#viewQuizzesNav").addClass("active");
+	$("#viewQuizzesDiv").show();
+});
+
 $("#signIn").click(function(){
 	signIn();
 });
@@ -80,17 +88,30 @@ function loginCallback(response){
 }
 
 function addQuestion(){
-	var quizName = $("#quizName").val();
-	var question = $("#question").val();
+	var quizName = $("#quizSelect").val();
+	// var question = $("#question").val();
+	// var answers = [
+	// 	$("#answer1").val(),
+	// 	$("#answer2").val(),
+	// 	$("#answer3").val(),
+	// 	$("#answer4").val()
+	// ];
+
+	var question = "Yay a question";
 	var answers = [
-		$("#answer1").val(),
-		$("#answer2").val(),
-		$("#answer3").val(),
-		$("#answer4").val()
+		"abdfafe",
+		"efefefe",
+		"efefefqwq",
+		"eeieieieiieie"
 	];
 
-	var data = {quizName: quizName, question: question, answers: answers};
-	console.log(data);
+	var data = {question: {quizName: quizName, question: question, answers: answers}};
+	
+	$.ajax({
+		type: "POST",
+		url: "/addQuestion",
+		data: data
+	});
 }
 
 function createQuiz(){

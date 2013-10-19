@@ -68,10 +68,23 @@ var _getQuizzes = function(req, resp){
 	});
 }
 
+/**********************************************************************************
+	Add question
+	curl -i -X GET http://localhost:3000/addQuestion
+***********************************************************************************/
+var _addQuestion = function(req, resp){
+	var question = req.body.question;
+	var userName = req.session.userName;
+
+	quizHelper.addQuestion({userName: userName, question: question});
+	resp.send(200);
+}
+
 module.exports = {
 	main: _main,
 	signIn: _signIn,
 	sessionCheck: _sessionCheck,
 	createQuiz: _createQuiz,
-	getQuizzes: _getQuizzes
+	getQuizzes: _getQuizzes,
+	addQuestion: _addQuestion
 };
