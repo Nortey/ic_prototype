@@ -1,5 +1,6 @@
 $(document).ready(function () {
- 	$("#viewUsers").hide();
+	$(".contentDiv").hide();
+ 	$("#addQuizDiv").show();
 
 	sessionCheck().then(function(response){
 		loginCallback(response);
@@ -8,16 +9,26 @@ $(document).ready(function () {
 
 $("#accountNav").click(function(){
 	$(".contentDiv").hide();
+	$(".nav li").removeClass("active");
+
+	$("#accountNav").addClass("active");
 	$("#accountDiv").show();
 });
 
-$("#viewUsersNav").click(function(){
+$("#addQuizNav").click(function(){
 	$(".contentDiv").hide();
-	$("#viewUsers").show();
+	$(".nav li").removeClass("active");
+
+	$("#addQuizNav").addClass("active");
+	$("#addQuizDiv").show();
 });
 
 $("#signIn").click(function(){
 	signIn();
+});
+
+$("#addQuestion").click(function(){
+	addQuestion();
 });
 
 
@@ -58,4 +69,19 @@ function loginCallback(response){
 		$("#welcomeDiv").show();
 		$("#welcomeDiv").html("Welcome " + response.userName);
 	}
+}
+
+function addQuestion(){
+	var quizName = $("#quizName").val();
+	var question = $("#question").val();
+	var answers = [
+		$("#answer1").val(),
+		$("#answer2").val(),
+		$("#answer3").val(),
+		$("#answer4").val()
+	];
+
+	var data = {quizName: quizName, question: question, answers: answers};
+	console.log(data);
+
 }

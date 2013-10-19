@@ -27,7 +27,7 @@
 		  <div class="nav-collapse collapse">
 			<ul class="nav">
 			  <li id="accountNav" class="active"><a href="#">Account</a></li>
-			  <li id="viewUsersNav"><a href="#">View Quizzes</a></li>
+			  <li id="addQuizNav"><a href="#">Add Quiz</a></li>
 			</ul>
 		  </div><!--/.nav-collapse -->
 		</div>
@@ -43,18 +43,25 @@
 				<h2 class="form-signin-heading">Please sign in</h2>
 				<input type="text" id="userName" class="input-block-level" placeholder="Username">
 				<input type="password" id="password" class="input-block-level" placeholder="Password">
-				<label class="checkbox">
-					<input type="checkbox" value="remember-me"> Remember me
-				</label>
 				<button id="signIn" class="btn btn-large btn-primary">Sign in</button>
 			</div>
 
-			<div id="welcomeDiv" style="display: none"></div>
-	  
+			<div id="welcomeDiv" style="display: none; text-align: center"></div>
 	  </div>
 
-	  <div id="viewUsers" class="contentDiv">
-		  
+	  <div id="addQuizDiv" class="contentDiv">
+		  <input type="text" id="quizName" placeholder="Quiz Name"> <br/> <hr/>
+
+		  Add Question:<br/>
+		  <input type="text" id="question" class="input-block-level" placeholder="Quiz Question"><br/>
+
+		  Add Answers:<br/>
+		  <input type="text" id="answer1" class="input-block-level" placeholder="Answer 1"><br/>
+		  <input type="text" id="answer2" class="input-block-level" placeholder="Answer 2"><br/>
+		  <input type="text" id="answer3" class="input-block-level" placeholder="Answer 3"><br/>
+		  <input type="text" id="answer4" class="input-block-level" placeholder="Answer 4"><br/>
+
+		  <button id="addQuestion" class="btn btn-large btn-primary">Add Question</button>
 	  </div>
 
 	</div> <!-- /container -->
