@@ -47,22 +47,32 @@
 			</div>
 
 			<div id="welcomeDiv" style="display: none; text-align: center"></div>
-	  </div>
+		</div>
 
-	  <div id="addQuizDiv" class="contentDiv">
-		  <input type="text" id="quizName" placeholder="Quiz Name"> <br/> <hr/>
+		<div id="addQuizDiv" class="contentDiv">
+			Add Quiz <br/>
+			<input type="text" id="quizName" placeholder="Quiz Name"> <br/>
+			<button id="createQuiz" class="btn btn-large btn-primary">Create Quiz</button>
+			<hr/>
 
-		  Add Question:<br/>
-		  <input type="text" id="question" class="input-block-level" placeholder="Quiz Question"><br/>
+			<div id="questionDiv">
 
-		  Add Answers:<br/>
-		  <input type="text" id="answer1" class="input-block-level" placeholder="Answer 1"><br/>
-		  <input type="text" id="answer2" class="input-block-level" placeholder="Answer 2"><br/>
-		  <input type="text" id="answer3" class="input-block-level" placeholder="Answer 3"><br/>
-		  <input type="text" id="answer4" class="input-block-level" placeholder="Answer 4"><br/>
+				Modify Quiz: </br>
+				<select id="quizSelect"></select> <br/>
 
-		  <button id="addQuestion" class="btn btn-large btn-primary">Add Question</button>
-	  </div>
+				Add Question:<br/>
+				<input type="text" id="question" class="input-block-level" placeholder="Quiz Question"><br/>
+
+				Add Answers:<br/>
+				<input type="text" id="answer1" class="input-block-level" placeholder="Answer 1"><br/>
+				<input type="text" id="answer2" class="input-block-level" placeholder="Answer 2"><br/>
+				<input type="text" id="answer3" class="input-block-level" placeholder="Answer 3"><br/>
+				<input type="text" id="answer4" class="input-block-level" placeholder="Answer 4"><br/>
+
+				<button id="addQuestion" class="btn btn-large btn-primary">Add Question</button>
+			</div>
+
+		</div>
 
 	</div> <!-- /container -->
 

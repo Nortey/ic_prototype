@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
   	ObjectId = mongoose.SchemaTypes.ObjectId;
 
 var quizSchema = new Schema({
-		userId: String,
+		userName: String,
+		quizName: String,
 		questions: [{
 			question: String,
 			answers: [String],
@@ -11,5 +12,5 @@ var quizSchema = new Schema({
 		}],
 	});
 
-var Quiz = mongoose.model('Quiz', quizSchema);
+var Quiz = mongoose.model('Quizzes', quizSchema);
 module.exports = Quiz;

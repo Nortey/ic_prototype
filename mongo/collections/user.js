@@ -8,5 +8,5 @@ var userSchema = new Schema({
 		studyGuides: [ObjectId]
 	});
 
-var User = mongoose.model('User', userSchema);
+var User = mongoose.model('Users', userSchema);
 module.exports = User;

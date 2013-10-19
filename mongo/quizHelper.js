@@ -3,21 +3,21 @@ var mongoose = require('mongoose'),
 	Quiz = require("./collections/quiz"),
 	Deferred = require("JQDeferred");
 
-var _addQuiz = function(documents){
+var _createQuiz = function(documents){
 	var def = Deferred();
 
-	db.collection('quizs').insert(documents, {}, function(){
+	db.collection('quizzes').insert(documents, {}, function(){
 		def.resolve();
 	})
 
 	return def;
 }
 
-var _getQuizById = function(options){
+var _getQuizzesByUserName = function(options){
 	var def = Deferred();
 
-	Quiz.findOne({userId: options.id}, function (err, user) {
-  		def.resolve(user);
+	Quiz.find({userName: options.userName}, { quizName: 1 }, function (err, quizzes) {
+  		def.resolve(quizzes);
 	});
 
 	return def;
@@ -34,8 +34,8 @@ var _deleteAllQuizzes = function(){
 }
 
 module.exports = {
-	addQuiz: _addQuiz,
-	getQuizById: _getQuizById,
+	createQuiz: _createQuiz,
+	getQuizzesByUserName: _getQuizzesByUserName,
 	deleteAllQuizzes: _deleteAllQuizzes
 };
 

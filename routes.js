@@ -1,6 +1,7 @@
 var fs = require("fs"),
 	Deferred = require("JQDeferred"),
-	userHelper = require("./mongo/userHelper");
+	userHelper = require("./mongo/userHelper"),
+	quizHelper = require("./mongo/quizHelper");
 
 /**************************************************************
 					MAIN PAGE
@@ -13,8 +14,8 @@ var _main = function(req, resp){
 }
 
 /**********************************************************************************
-	Sign In
-	curl -i -X GET http://localhost:3000/signIn
+	Session check
+	curl -i -X GET http://localhost:3000/sessionCheck
 ***********************************************************************************/
 var _sessionCheck = function(req, resp){
 	if(req.session.userName != null){
@@ -24,6 +25,10 @@ var _sessionCheck = function(req, resp){
 	}
 }
 
+/**********************************************************************************
+	Sign In
+	curl -i -X GET http://localhost:3000/signIn
+***********************************************************************************/
 var _signIn = function(req, resp){
 	var userName = req.body.userName;
 	var password = req.body.password;
@@ -38,8 +43,35 @@ var _signIn = function(req, resp){
 	});
 }
 
+/**********************************************************************************
+	Create quiz
+	curl -i -X GET http://localhost:3000/createQuiz
+***********************************************************************************/
+var _createQuiz = function(req, resp){
+	var quizName = req.body.quizName;
+	var userName = req.session.userName;
+
+	quizHelper.createQuiz({userName: userName, quizName: quizName}).then(function(){
+		resp.send(200);
+	});
+}
+
+/**********************************************************************************
+	Get quizzes
+	curl -i -X GET http://localhost:3000/getQuizzes
+***********************************************************************************/
+var _getQuizzes = function(req, resp){
+	var userName = req.session.userName;
+
+	quizHelper.getQuizzesByUserName({userName: userName}).then(function(quizzes){
+		resp.json(quizzes);
+	});
+}
+
 module.exports = {
 	main: _main,
 	signIn: _signIn,
-	sessionCheck: _sessionCheck
+	sessionCheck: _sessionCheck,
+	createQuiz: _createQuiz,
+	getQuizzes: _getQuizzes
 };

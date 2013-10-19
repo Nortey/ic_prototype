@@ -27,6 +27,10 @@ $("#signIn").click(function(){
 	signIn();
 });
 
+$("#createQuiz").click(function(){
+	createQuiz();
+});
+
 $("#addQuestion").click(function(){
 	addQuestion();
 });
@@ -83,5 +87,30 @@ function addQuestion(){
 
 	var data = {quizName: quizName, question: question, answers: answers};
 	console.log(data);
+}
 
+function createQuiz(){
+	var quizName = $("#quizName").val();
+	var data = {quizName: quizName};
+
+	$.ajax({
+		type: "POST",
+		url: "/createQuiz",
+		data: data
+	}).then(function(response){
+		getQuizzes();
+	});
+}
+
+function getQuizzes(){
+	$.ajax({
+		type: "GET",
+		url: "/getQuizzes",
+		dataType: 'json'
+	}).then(function(response){
+		$.each(response, function(i, quiz){
+			var option = $("<option/>", {html: quiz.quizName, value: quiz.quizName});
+			$("#quizSelect").append(option);
+		})
+	});
 }

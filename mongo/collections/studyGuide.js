@@ -7,5 +7,5 @@ var studyGuideSchema = new Schema({
 		comments:[String]
 	});
 
-var StudyGuide = mongoose.model('StudyGuide', studyGuideSchema);
+var StudyGuide = mongoose.model('StudyGuides', studyGuideSchema);
 module.exports = StudyGuide;
