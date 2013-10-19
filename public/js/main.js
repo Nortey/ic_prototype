@@ -1,10 +1,14 @@
 $(document).ready(function () {
-  $("#viewUsers").hide();
+ 	$("#viewUsers").hide();
+
+	sessionCheck().then(function(response){
+		loginCallback(response);
+	});
 });
 
-$("#signInNav").click(function(){
+$("#accountNav").click(function(){
 	$(".contentDiv").hide();
-	$("#signInDiv").show();
+	$("#accountDiv").show();
 });
 
 $("#viewUsersNav").click(function(){
@@ -12,18 +16,46 @@ $("#viewUsersNav").click(function(){
 	$("#viewUsers").show();
 });
 
+$("#signIn").click(function(){
+	signIn();
+});
 
-function addUser(){
-	var certificate = "ABCDEFG";
 
-	var table = $("#usersTable");
-	var tableRow = $("<tr/>", {});
-	var subjectName = $("<td/>", {text: "Jeremy"});
-	var serialNumber = $("<td/>", {text: "ABCDEFGHIJK"});
-	var viewCertifiate = $("<td/>", {html: "<button onclick='alert(\""+ certificate +"\")'>View Certificate</button>"});
+function sessionCheck(){
+	var def = new $.Deferred();
 
-	subjectName.appendTo(tableRow);
-	serialNumber.appendTo(tableRow);
-	viewCertifiate.appendTo(tableRow);
-	tableRow.appendTo(table);
+	$.ajax({
+		type: "GET",
+		url: "/sessionCheck",
+	}).then(function(response){
+		def.resolve(response);
+	});
+
+	return def;
+}
+
+function signIn(){
+	var userName = $("#userName").val();
+	var password = $("#password").val();
+	var data = { userName: userName, password: password};
+
+	$.ajax({
+		type: "POST",
+		url: "/signIn",
+		data: data,
+		dataType: 'json',
+	}).then(function(response){
+		loginCallback(response);
+	});
+}
+
+function loginCallback(response){
+	var loggedIn = response.loggedIn;
+	if(!loggedIn){
+		$("#signinForm").show();
+	}else{
+		$("#signinForm").hide();
+		$("#welcomeDiv").show();
+		$("#welcomeDiv").html("Welcome " + response.userName);
+	}
 }

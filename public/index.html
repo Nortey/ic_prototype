@@ -26,7 +26,7 @@
 		  <a class="brand" href="#">Prototype</a>
 		  <div class="nav-collapse collapse">
 			<ul class="nav">
-			  <li id="signInNav" class="active"><a href="#">Sign In</a></li>
+			  <li id="accountNav" class="active"><a href="#">Account</a></li>
 			  <li id="viewUsersNav"><a href="#">View Quizzes</a></li>
 			</ul>
 		  </div><!--/.nav-collapse -->
@@ -36,18 +36,20 @@
 
 	<div class="container">
 
-		<div id="signInDiv" class="contentDiv row">
-			<h1 style="text-align: center">Sign In<h1> <hr/>
+		<div id="accountDiv" class="contentDiv row">
+			<h1 style="text-align: center">Account<h1> <hr/>
 
-			<form class="form-signin">
+			<div id="signinForm" class="form-signin" style="display: none">
 				<h2 class="form-signin-heading">Please sign in</h2>
-				<input type="text" class="input-block-level" placeholder="Username">
-				<input type="password" class="input-block-level" placeholder="Password">
+				<input type="text" id="userName" class="input-block-level" placeholder="Username">
+				<input type="password" id="password" class="input-block-level" placeholder="Password">
 				<label class="checkbox">
 					<input type="checkbox" value="remember-me"> Remember me
 				</label>
-				<button class="btn btn-large btn-primary" type="submit">Sign in</button>
-			</form>
+				<button id="signIn" class="btn btn-large btn-primary">Sign in</button>
+			</div>
+
+			<div id="welcomeDiv" style="display: none"></div>
 	  
 	  </div>
 

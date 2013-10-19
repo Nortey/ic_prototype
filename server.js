@@ -13,6 +13,7 @@ app.use(app.router);
 
 // Routes
 app.get('/', routes.main);
+app.get('/sessionCheck', routes.sessionCheck);
 app.post('/signIn', routes.signIn);
 
 // Start Server

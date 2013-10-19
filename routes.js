@@ -16,6 +16,14 @@ var _main = function(req, resp){
 	Sign In
 	curl -i -X GET http://localhost:3000/signIn
 ***********************************************************************************/
+var _sessionCheck = function(req, resp){
+	if(req.session.userName != null){
+		resp.json({loggedIn: true, userName: req.session.userName});
+	}else{
+		resp.json({loggedIn: false});
+	}
+}
+
 var _signIn = function(req, resp){
 	var userName = req.body.userName;
 	var password = req.body.password;
@@ -23,14 +31,15 @@ var _signIn = function(req, resp){
 	userHelper.signInUser({userName: userName, password: password}).then(function(user){
 		if(user != null){
 			req.session.userName = user.userName;
-			resp.send(200);
+			resp.json({loggedIn: true, userName: user.userName});
 		}else{
-			resp.send(401);
+			resp.json({loggedIn: false});
 		}
 	});
 }
 
 module.exports = {
 	main: _main,
-	signIn: _signIn
+	signIn: _signIn,
+	sessionCheck: _sessionCheck
 };
