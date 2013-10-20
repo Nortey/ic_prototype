@@ -26,19 +26,41 @@
 		  <a class="brand" href="#">Prototype</a>
 		  <div class="nav-collapse collapse">
 			<ul class="nav">
-			  <li id="accountNav" class="active"><a href="#">Account</a></li>
+			  <li id="homeNav" class="active"><a href="#">Home</a></li>
+			  <li id="accountNav"><a href="#">Account</a></li>
 			  <li id="addQuizNav"><a href="#">Add Quiz</a></li>
 			  <li id="viewQuizzesNav"><a href="#">View Quizzes</a></li>
 			  <li id="studyGuideNav"><a href="#">Add Study Guide</a></li>
 			</ul>
 		  </div><!--/.nav-collapse -->
+
+		<div class="pull-right">
+			<ul class="nav">
+				<li id="signInNav" class="pull-right"><a href="#">Sign In</a></li>
+				<li id="registerNav" class="pull-right"><a href="#">Register</a></li>
+			</ul>
+		</div>
 		</div>
 	  </div>
 	</div>
 
 	<div class="container">
 
-		<div id="accountDiv" class="contentDiv row">
+		<div id="frontpage" class="contentDiv">
+			<h1> Frontpage </h1>
+
+			<table id="frontPageTable" class="table table-hover">
+				<thead>
+				<tr>
+					<th>UserName</th>
+					<th>Title</th>
+				</tr>
+				</thead>
+			</table>
+
+		</div>
+
+		<div id="accountDiv" class="contentDiv row"  style="display: none;">
 			<h1 style="text-align: center">Account<h1> <hr/>
 
 			<div id="signinForm" class="form-signin" style="display: none">
@@ -52,7 +74,11 @@
 
 				<div class="row" style="margin: auto">
 					<div class="span5 well">
-						Profile
+						Profile <br/>
+						Username: <span id="profileUserName"></span> <br/>
+						Bio: <span id="profileBio"></span> <br/>
+						Education: <span id="profileEducation"></span> <br/>
+						Email Address: <span id="profileEmailAddress"></span>
 					</div>
 
 					<div class="span5 offset1 well">

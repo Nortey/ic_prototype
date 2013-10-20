@@ -24,6 +24,16 @@ var _getStudyGuidesByUserName = function(options){
 	return def;
 }
 
+var _getAllStudyGuides = function(options){
+	var def = Deferred();
+
+	StudyGuide.find({}, function (err, guides) {
+ 	 	def.resolve(guides);
+	});
+
+	return def;
+}
+
 var _deleteAllStudyGuides = function(){
 	var def = Deferred();
 	
@@ -37,7 +47,8 @@ var _deleteAllStudyGuides = function(){
 module.exports = {
 	addStudyGuide: _addStudyGuide,
 	deleteAllStudyGuides: _deleteAllStudyGuides,
-	getStudyGuidesByUserName: _getStudyGuidesByUserName
+	getStudyGuidesByUserName: _getStudyGuidesByUserName,
+	getAllStudyGuides: _getAllStudyGuides
 };
 
 

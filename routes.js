@@ -117,14 +117,37 @@ var _getStudyGuides = function(req, resp){
 
 /**********************************************************************************
 	Get user profile
-	curl -i -X GET http://localhost:3000/addStudyGuide
+	curl -i -X GET http://localhost:3000/getUserByUserName
 ***********************************************************************************/
-var _getUserProfile = function(req, resp){
-	var userName = req.session.userName;
+var _getUserByUserName = function(req, resp){
+	var userName = req.body.user;
 
-	// studyGuideHelper.getStudyGuidesByUserName({userName: userName}).then(function(studyGuides){
-	// 	resp.json(studyGuides);
-	// });
+	if(userName == null){
+		userName = req.session.userName;
+	}
+
+	userHelper.getUserByUserName({userName: userName}).then(function(user){
+		resp.json(user);
+	});
+}
+
+/**********************************************************************************
+	Get frontpage
+	curl -i -X GET http://localhost:3000/getFrontPage
+***********************************************************************************/
+var _getFrontPage = function(req, resp){
+	var deferreds = [];
+	deferreds.push(quizHelper.getAllQuizzes());
+	deferreds.push(studyGuideHelper.getAllStudyGuides());
+
+	Deferred.when.apply(Deferred, deferreds).done(function () {
+		values = [];
+        for(var i=0; i<arguments.length; i++){
+        	values = values.concat(arguments[i]);
+        }
+
+        resp.json(values);
+    });
 }
 
 module.exports = {
@@ -136,5 +159,7 @@ module.exports = {
 	addQuestion: _addQuestion,
 	getAllQuizzes: _getAllQuizzes,
 	addStudyGuide: _addStudyGuide,
-	getStudyGuides: _getStudyGuides
+	getStudyGuides: _getStudyGuides,
+	getUserByUserName: _getUserByUserName,
+	getFrontPage: _getFrontPage
 };

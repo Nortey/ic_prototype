@@ -21,6 +21,8 @@ app.post('/addQuestion', routes.addQuestion);
 app.get('/getAllQuizzes', routes.getAllQuizzes);
 app.post('/addStudyGuide', routes.addStudyGuide);
 app.get('/getStudyGuides', routes.getStudyGuides);
+app.post('/getUserByUserName', routes.getUserByUserName);
+app.get('/getFrontPage', routes.getFrontPage);
 
 // Start Server
 function start(){

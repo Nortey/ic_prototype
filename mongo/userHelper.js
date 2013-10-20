@@ -24,10 +24,10 @@ var _addUser = function(user){
 	return def;
 }
 
-var _getUserById = function(options){
+var _getUserByUserName = function(options){
 	var def = Deferred();
 
-	User.findOne({userId: options.id}, function (err, user) {
+	User.findOne({userName: options.userName}, function (err, user) {
   		def.resolve(user);
 	});
 
@@ -46,7 +46,8 @@ var _deleteAllUsers = function(){
 
 module.exports = {
 	signInUser: _signInUser,
-	addUser: _addUser
+	addUser: _addUser,
+	getUserByUserName: _getUserByUserName
 };
 
 

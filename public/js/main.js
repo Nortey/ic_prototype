@@ -1,11 +1,13 @@
 $(document).ready(function () {
-	$(".contentDiv").hide();
- 	$("#accountDiv").show();
- 	$(".nav li").hide();
+	$(".contentDiv").hide();	
+ 	$("#frontpage").show();
+ 	//$(".nav li").hide();
 
-	sessionCheck().then(function(response){
-		loginCallback(response);
-	});
+	// sessionCheck().then(function(response){
+	// 	loginCallback(response);
+	// });
+
+	loadFrontPage();
 });
 
 $("#accountNav").click(function(){
@@ -14,6 +16,7 @@ $("#accountNav").click(function(){
 
 	$("#accountNav").addClass("active");
 	$("#accountDiv").show();
+	$("#welcomeDiv").show();
 });
 
 $("#addQuizNav").click(function(){
@@ -58,6 +61,25 @@ $("#addStudyGuideBtn").click(function(){
 	addStudyGuide();
 });
 
+function loadFrontPage(){
+	$.ajax({
+		type: "GET",
+		url: "/getFrontPage",
+	}).then(function(response){
+		var frontPageTable = $("#frontPageTable");
+		$('#frontPageTable tbody > tr').remove();
+
+		$.each(response, function(i, item){
+			var tableRow = $("<tr/>", {});
+			var userName = $("<td/>", {html: item.userName });
+			var itemName = $("<td/>", {html: (item.name || item.quizName) });
+
+			userName.appendTo(tableRow);
+			itemName.appendTo(tableRow);
+			tableRow.appendTo(frontPageTable)
+		})
+	});
+}
 
 function sessionCheck(){
 	var def = new $.Deferred();
@@ -95,8 +117,6 @@ function loginCallback(response){
 		$(".nav li").show();
 
 		$("#signinForm").hide();
-		$("#welcomeDiv").show();
-
 		populateAccountPage();
 	}
 }
@@ -235,13 +255,20 @@ function populateAccountPage(){
 	});
 
 
+
 	// Get Profile
 	$.ajax({
-		type: "GET",
-		url: "/getUserProfile",
+		type: "POST",
+		url: "/getUserByUserName",
 		dataType: 'json'
 	}).then(function(response){
-		console.log(response);
+		var userName = response.userName;
+		var profile = response.profile;
+
+		$("#profileUserName").html(userName);
+		$("#profileBio").html(profile.bio);
+		$("#profileEducation").html(profile.education);
+		$("#profileEmailAddress").html(profile.email);
 	});
 
 }
