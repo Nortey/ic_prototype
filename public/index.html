@@ -29,6 +29,7 @@
 			  <li id="accountNav" class="active"><a href="#">Account</a></li>
 			  <li id="addQuizNav"><a href="#">Add Quiz</a></li>
 			  <li id="viewQuizzesNav"><a href="#">View Quizzes</a></li>
+			  <li id="studyGuideNav"><a href="#">Add Study Guide</a></li>
 			</ul>
 		  </div><!--/.nav-collapse -->
 		</div>
@@ -47,7 +48,35 @@
 				<button id="signIn" class="btn btn-large btn-primary">Sign in</button>
 			</div>
 
-			<div id="welcomeDiv" style="display: none; text-align: center"></div>
+			<div id="welcomeDiv" style="display: none;"> <br/>
+
+				<div class="row" style="margin: auto">
+					<div class="span5 well">
+						Profile
+					</div>
+
+					<div class="span5 offset1 well">
+						Reputation Points:<span></span><br/>
+						IQ Points:<span></span>
+					</div>
+				</div>
+
+				<div class="row" style="margin: auto">
+					<div id="accountStudyGuideDiv" class="span3 well">
+						<h3>Study Guides</h3>
+					</div>
+
+					<div id="accountQuizDiv" class="span3 well">
+						<h3>Quizzes</h3>
+					</div>
+
+					<div class="span3 well">
+						<h3>Badges</h3>
+					</div>
+				</div>
+
+			</div>
+
 		</div>
 
 		<div id="addQuizDiv" class="contentDiv">
@@ -84,6 +113,13 @@
 				</tr>
 				</thead>
 			</table>
+		</div>
+
+		<div id="addStudyGuideDiv" class="contentDiv">
+			Study Guide <br/><br/>
+			<input type="text" id="studyGuideName" placeholder="Study Guide Name">
+			<textarea id="studyGuideContent" style="width: 80%" rows="16"></textarea> <br/>
+			<button id="addStudyGuideBtn" class="btn btn-large btn-primary">Add Study Guide</button>
 		</div>
 
 	</div> <!-- /container -->

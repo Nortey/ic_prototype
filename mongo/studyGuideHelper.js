@@ -14,12 +14,12 @@ var _addStudyGuide = function(documents){
 	return def;
 }
 
-var _getGuideById = function(options){
+var _getStudyGuidesByUserName = function(options){
 	var def = Deferred();
 
-	// StudyGuide.findOne({userId: options.id}, function (err, user) {
- 	//  	def.resolve(user);
-	// });
+	StudyGuide.find({userName: options.userName}, { name: 1 }, function (err, user) {
+ 	 	def.resolve(user);
+	});
 
 	return def;
 }
@@ -36,8 +36,8 @@ var _deleteAllStudyGuides = function(){
 
 module.exports = {
 	addStudyGuide: _addStudyGuide,
-	getGuideById: _getGuideById,
-	deleteAllStudyGuides: _deleteAllStudyGuides
+	deleteAllStudyGuides: _deleteAllStudyGuides,
+	getStudyGuidesByUserName: _getStudyGuidesByUserName
 };
 
 

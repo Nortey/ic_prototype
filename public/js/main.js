@@ -34,6 +34,14 @@ $("#viewQuizzesNav").click(function(){
 	getAllQuizzes();
 });
 
+$("#studyGuideNav").click(function(){
+	$(".contentDiv").hide();
+	$(".nav li").removeClass("active");
+
+	$("#studyGuideNav").addClass("active");
+	$("#addStudyGuideDiv").show();
+});
+
 $("#signIn").click(function(){
 	signIn();
 });
@@ -44,6 +52,10 @@ $("#createQuiz").click(function(){
 
 $("#addQuestion").click(function(){
 	addQuestion();
+});
+
+$("#addStudyGuideBtn").click(function(){
+	addStudyGuide();
 });
 
 
@@ -84,7 +96,8 @@ function loginCallback(response){
 
 		$("#signinForm").hide();
 		$("#welcomeDiv").show();
-		$("#welcomeDiv").html("Welcome " + response.userName);
+
+		populateAccountPage();
 	}
 }
 
@@ -162,4 +175,73 @@ function getAllQuizzes(){
 			tableRow.appendTo(quizTable)
 		})
 	});
+}
+
+function addStudyGuide(){
+	var studyGuideName = $("#studyGuideName").val();
+	var content = $("#studyGuideContent").val();
+
+	var data = {studyGuide: { studyGuideName: studyGuideName, content: content} };
+
+	$.ajax({
+		type: "POST",
+		url: "/addStudyGuide",
+		data: data
+	})
+}
+
+function populateAccountPage(){
+
+	// Get quizzes
+	$.ajax({
+		type: "GET",
+		url: "/getUserQuizzes",
+		dataType: 'json'
+	}).then(function(response){
+		var accountQuizDiv = $("#accountQuizDiv")
+		$("#accountQuizTable").remove();
+		var accountQuizTable = $("<table/>", {id: "accountQuizTable", class: "table"} );
+
+		$.each(response, function(i, quiz){
+			var tableRow = $("<tr/>", {});
+			var quizName = $("<td/>", {html: quiz.quizName});
+
+			quizName.appendTo(tableRow);
+			tableRow.appendTo(accountQuizTable)
+		})
+
+		accountQuizTable.appendTo(accountQuizDiv);
+	});
+
+	// Get Study Guides
+	$.ajax({
+		type: "GET",
+		url: "/getStudyGuides",
+		dataType: 'json'
+	}).then(function(response){
+		var studyGuideDiv = $("#accountStudyGuideDiv")
+		$("#accountStudyGuideTable").remove();
+		var accountStudyGuideTable = $("<table/>", {id: "accountStudyGuideTable", class: "table"} );
+
+		$.each(response, function(i, guide){
+			var tableRow = $("<tr/>", {});
+			var studyGuideName = $("<td/>", {html: guide.name});
+
+			studyGuideName.appendTo(tableRow);
+			tableRow.appendTo(accountStudyGuideTable)
+		})
+
+		accountStudyGuideTable.appendTo(studyGuideDiv);
+	});
+
+
+	// Get Profile
+	$.ajax({
+		type: "GET",
+		url: "/getUserProfile",
+		dataType: 'json'
+	}).then(function(response){
+		console.log(response);
+	});
+
 }
